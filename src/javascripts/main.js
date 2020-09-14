@@ -6,15 +6,6 @@ require.context('../stylesheets/', true, /\.(css|scss)$/i)
 // TODO
 import React from 'react'
 import ReactDOM from 'react-dom'
+import App from './components/App'
 
-import { movies } from './movies'
-import {MovieList} from './components/movie-list'
-
-class Main extends React.Component {
-  render() {
-    return <MovieList movies={movies} />
-  }
-}
-
-
-ReactDOM.render(<Main />, document.getElementById('main'))
+ReactDOM.render(<App />, document.getElementById('main'))

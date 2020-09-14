@@ -1,6 +1,8 @@
 import React from 'react'
+import { FaThumbsUp } from 'react-icons/fa'
 
-export function Movie(props) {
+export default function Movie(props) {
+    const onLike = props.onLike
     const m = props.movie
     return (
         <div className="card">
@@ -10,7 +12,7 @@ export function Movie(props) {
             <ul className="extra">
                 <li><strong>{m.rating}</strong> Rating</li>
                 <li><strong>{m.votes}</strong> Votes</li>
-                <li><button className="primary">Select</button></li>
+                <li><FaThumbsUp color="maroon" onClick={onLike} /> <small>{m.likes ? m.likes : 0}</small></li>
             </ul>
         </div>
     )
