@@ -37,6 +37,11 @@ body {
             &>li {
                 margin : 0px;
                 padding: 0px 10px;
+
+                a {
+                    text-decoration: none;
+                    color          : white;
+                }
             }
         }
     }
@@ -83,6 +88,38 @@ button.primary {
 
 footer {
     background: black;
-    color: white;
-    padding: 20px 0 50px 20px;
+    color     : white;
+    padding   : 20px 0 50px 20px;
+}
+
+form {
+    width: 90%;
+
+    .field {
+        display: flex;
+
+        & label {
+            width      : 15%;
+            padding    : 5px;
+            font-weight: bold;
+        }
+
+        & .control {
+            width: 85%;
+
+            input,
+            textarea {
+                padding      : 10px;
+                border       : 1px solid #eee;
+                border-radius: 3px;
+                width        : 60%;
+            }
+
+            P {
+                margin   : 5px 0;
+                font-size: 10px;
+                color    : red;
+            }
+        }
+    }
 }

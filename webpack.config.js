@@ -10,11 +10,13 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 8080
+    port: 8080,
+    historyApiFallback: true
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'javascripts/[name].js'
+    filename: 'javascripts/[name].js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -32,7 +34,7 @@ module.exports = {
         test: /\.(html|json|txt|dat|gif|jpg|png|svg|eot|ttf|woff|woff2)$/i,
         use: [{
           loader: 'file-loader',
-          options: { 
+          options: {
             name: '[name].[ext]',
             outputPath: (url, resourcePath, context) => {
               return resourcePath.includes(`${path.sep}images${path.sep}`) ? `images/${url}` : url
