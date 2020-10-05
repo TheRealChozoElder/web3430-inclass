@@ -5,14 +5,14 @@ import { Switch, Route, Link, Redirect, useHistory } from 'react-router-dom'
 import { About, ErrorNotFound } from './Pages'
 import MovieForm from './MovieForm'
 
-export const MovieContex = createContext()
+export const MovieContext = createContext()
 
 export default function MovieList() {
 
     const [movies, setMovies] = useState(top10)
     const history = useHistory()
     return (
-        <MovieContex.Provider value={{movies, setMovies}}>
+        <MovieContext.Provider value={{ movies, setMovies }}>
             <nav>
                 <ul>
                     <li><Link to='/'>Home</Link></li>
@@ -59,6 +59,6 @@ export default function MovieList() {
                     </Route>
                 </Switch>
             </main>
-        </MovieContex.Provider>
+        </MovieContext.Provider>
     )
 }
