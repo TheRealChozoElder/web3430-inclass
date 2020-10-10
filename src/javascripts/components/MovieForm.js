@@ -167,7 +167,7 @@ export default function MovieForm() {
                 <div className='field'>
                     <label></label>
                     <div className='control'>
-                        <button className='primary'>Subit</button>
+                        <button className='primary'>Submit</button>
                         <button className='primary' onClick={() => history.push('/movies')}>Cancel</button>
                     </div>
                 </div>
