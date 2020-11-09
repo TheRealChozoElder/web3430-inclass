@@ -18,7 +18,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-//routing
+import { configureRoutes } from './src/javascripts/config/routes'
+configureRoutes(app)
 
 app.use(function (req, res, next) {
     next(createError(404))
