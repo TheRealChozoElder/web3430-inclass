@@ -26,7 +26,7 @@ export default function ContactForm() {
         validationSchema,
 
         onSubmit(values) {
-            fetch('api/contact', {
+            fetch('/api/contact', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

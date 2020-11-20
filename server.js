@@ -10,7 +10,7 @@ connect("mongodb://localhost:27017/topmovies")
 export let app = express()
 
 app.set('views', path.join(__dirname, 'src', 'javascripts', 'views'))
-app.set('view.engine', 'ejs')
+app.set('view engine', 'ejs')
 
 app.use(logger('dev'))
 app.use(express.json())
@@ -22,12 +22,12 @@ import { configureRoutes } from './src/javascripts/config/routes'
 configureRoutes(app)
 
 app.use(function (req, res, next) {
-    res.render('layout', {content: 'error', err: createError(404), title: "Top 10 Movies Nathan Beach" }) 
+    res.render('layout', { content: 'error', err: createError(404), title: "Top 10 Movies Nathan Beach" })
 })
 
 app.use(function (err, req, res, next) {
     res.status(err.status || 500)
-    res.render('layout', {content: 'error', title: "Top 10 Movies Nathan Beach", err: err })
+    res.render('layout', { content: 'error', title: "Top 10 Movies Nathan Beach", err: err })
 })
 
 let http = require('http')

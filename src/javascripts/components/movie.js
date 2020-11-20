@@ -5,7 +5,7 @@ import Modal from 'react-modal'
 import { MovieContext } from './MovieList'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import {format} from 'date-fns'
+import { format } from 'date-fns'
 
 const customStyles = {
     content: {
@@ -26,15 +26,25 @@ export default function Movie(props) {
     const onRate = props.onRate
     const m = props.movie
     const deleteMovie = () => {
-        for (let i in movies) {
-            if (movies[i].id === m.id) {
-                movies.splice(+i, 1)
+        fetch(`/api/movies/${m.id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
             }
-        }
-        setMovies([...movies])
-        setModalOpen(false)
-        history.push('/movies')
-        toast('Movie successfully deleted.')
+        }).then(() => {
+            toast('Successfully submitted', {
+                onClose: () => {
+                    document.location = "/movies"
+                }
+            })
+            setModalOpen(false)
+        }).catch((error) => {
+            toast('Failed to submit', {
+                onClose: () => {
+                    document.location = "/movies"
+                }
+            })
+        })
     }
 
     const history = useHistory()

@@ -14,7 +14,7 @@ export function VHelp({ message }) {
 }
 
 const validationSchema = yup.object({
-    id: yup.number().required("ID is required"),
+    // id: yup.number().required("ID is required"),
     title: yup.string().required("Title is required"),
     year: yup.number().required("Year is required and between 1900 and current year").min(1900).max(new Date().getFullYear()),
     rated: yup.string().required("Rating is required, ratings are G, PG, PG-13, R, and NC17"),
@@ -35,7 +35,7 @@ export default function MovieForm() {
     let is_new = mid === undefined
     let { handleSubmit, handleChange, values, errors, setFieldValue } = useFormik({
         initialValues: is_new ? {
-            id: "",
+            // id: "",
             title: "",
             year: new Date().getFullYear(),
             rated: "",
@@ -51,21 +51,25 @@ export default function MovieForm() {
         validationSchema,
 
         onSubmit(values) {
-            if (is_new) {
-                let id = movies.length
-                while (true) {
-                    let mv = movies.find(m => m.id == id++)
-                    if (mv === undefined) break
-                }
-                values.id = id
-                movies.push(values)
-            } else {
-                let mv = movies.find(m => m.id == movie.id)
-                Object.assign(mv, values)
-            }
-            setMovies([...movies])
-            history.push('/movies')
-            toast(is_new ? "Successfully added" : "Succesfully updated")
+            fetch(`/api/movies${is_new ? '' : '/' + movie.id}`, {
+                method: is_new ? "POST" : "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(values)
+            }).then(() => {
+                toast('Successfully submitted', {
+                    onClose: () => {
+                        document.location = "/movies"
+                    }
+                })
+            }).catch((error) => {
+                toast('Failed to submit', {
+                    onClose: () => {
+                        document.location = "/movies"
+                    }
+                })
+            })
         }
     })
 
@@ -76,13 +80,13 @@ export default function MovieForm() {
             <form onSubmit={handleSubmit}>
                 <h1>Adding/Editing a movie</h1>
 
-                <div className='field'>
+                {/* <div className='field'>
                     <label htmlFor='id'>ID</label>
                     <div className='control'>
                         <input type='text' name='id' value={values.id} onChange={handleChange} />
                         <VHelp message={errors.id} />
                     </div>
-                </div>
+                </div> */}
 
                 <div className='field'>
                     <label htmlFor='title'>Title</label>
@@ -167,7 +171,7 @@ export default function MovieForm() {
                 <div className='field'>
                     <label></label>
                     <div className='control'>
-                        <button className='primary'>Submit</button>
+                        <button className='primary' type='submit'>Submit</button>
                         <button className='primary' onClick={() => history.push('/movies')}>Cancel</button>
                     </div>
                 </div>
