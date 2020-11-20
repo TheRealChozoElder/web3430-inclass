@@ -22,12 +22,12 @@ import { configureRoutes } from './src/javascripts/config/routes'
 configureRoutes(app)
 
 app.use(function (req, res, next) {
-    next(createError(404))
+    res.render('layout', {content: 'error', err: createError(404), title: "Top 10 Movies Nathan Beach" }) 
 })
 
 app.use(function (err, req, res, next) {
     res.status(err.status || 500)
-    res.render(err)
+    res.render('layout', {content: 'error', title: "Top 10 Movies Nathan Beach", err: err })
 })
 
 let http = require('http')
@@ -41,4 +41,4 @@ server.on('listening', () => {
     let address = server.address()
     let bind = typeof address === 'string' ? addresss : address.port
     console.log("Listening on " + bind)
-})
+}) 

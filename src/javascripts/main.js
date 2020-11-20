@@ -8,5 +8,10 @@ require.context('../stylesheets/', true, /\.(css|scss)$/i)
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App'
+import ContactForm from './components/ContactForm'
 
-ReactDOM.render(<App />, document.getElementById('main'))
+if (document.getElementById('main')) {
+    ReactDOM.render(<App />, document.getElementById('main'))
+} else if (document.getElementById('contact')) {
+    ReactDOM.render(<ContactForm />, document.getElementById('contact'))
+}

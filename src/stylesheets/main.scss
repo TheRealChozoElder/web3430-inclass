@@ -22,7 +22,11 @@ body {
     margin   : 10px auto;
     display  : flex;
     flex-flow: column nowrap;
-
+    .pull-content-right{
+        display: flex;
+        justify-content: flex-end;
+    }
+    
     nav {
         display   : flex;
         background: maroon;
