@@ -13,7 +13,7 @@ export const allMoviesAPI = (req, res, next) => {
 }
 
 export const oneMovieAPI = (req, res, next) => {
-    Movie.find({_id: req.params.id}).select('-reviews').exec((err, movie) => {
+    Movie.find({ _id: req.params.id }).select('-reviews').exec((err, movie) => {
         if (err) {
             res.json({ success: false, message: "Querry failed" })
             res.end()
@@ -39,7 +39,7 @@ export const createMovieAPI = (req, res, next) => {
 }
 
 export const updateMovieAPI = (req, res, next) => {
-    Movie.findOne({_id: req.params.id}).select('-reviews').exec((err, movie) => {
+    Movie.findOne({ _id: req.params.id }).select('-reviews').exec((err, movie) => {
         if (err) {
             res.json({ success: false, message: "Update failed" })
             res.end()
@@ -59,7 +59,7 @@ export const updateMovieAPI = (req, res, next) => {
 }
 
 export const deleteMovieAPI = (req, res, next) => {
-    Movie.findOne({_id: req.params.id}).select('-reviews').exec((err, movie) => {
+    Movie.findOne({ _id: req.params.id }).select('-reviews').exec((err, movie) => {
         if (err) {
             res.json({ success: false, message: "Delete failed" })
             res.end()

@@ -39,6 +39,6 @@ server.on('error', err => {
 
 server.on('listening', () => {
     let address = server.address()
-    let bind = typeof address === 'string' ? addresss : address.port
+    let bind = typeof address === 'string' ? address : address.port
     console.log("Listening on " + bind)
 }) 
