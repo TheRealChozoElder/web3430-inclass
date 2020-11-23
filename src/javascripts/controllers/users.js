@@ -27,8 +27,7 @@ export const signUserInAPI = (req, res, next) => {
         }else{
             if(user){
                 let token = user.generateJWT()
-                res.cookie("token", token)
-                res.json({"token": token})
+                res.cookie("token", token, {maxAge: 1000 * 60 * 3 /*60 *24 for one day*/})
                 res.end()
             }else{
                 res.status(401).json(err)

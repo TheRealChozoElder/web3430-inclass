@@ -20,7 +20,8 @@ let movieSchema = new Schema({
     added_at: Date,
     updated_at: Date,
     releaseDate: Date,
-    reviews: [ reviewSchema ]
+    reviews: [ reviewSchema ],
+    added_by: {type: Schema.Types.ObjectId, ref: "User"}
 })
 
 movieSchema.virtual('id').get(function(){

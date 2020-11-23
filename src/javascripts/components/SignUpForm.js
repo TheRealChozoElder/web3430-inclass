@@ -11,36 +11,43 @@ export function VHelp({ message }) {
 }
 
 const validationSchema = yup.object({
-    name: yup.string().required("Name is required"),
+    firstName: yup.string().required("First Name is required"),
+    lastName: yup.string().required("Last Name is required"),
     email: yup.string().email().required("Email is required"),
-    message: yup.string().required("Please leave a message.")
+    username: yup.string().required("A username is required"),
+    password: yup.string().required("A password is required")
 })
-export default function ContactForm() {
+export default function SignUpForm() {
     let { handleSubmit, handleChange, values, errors, setFieldValue } = useFormik({
         initialValues: {
-            name: "",
+            firstName: "",
+            lastName: "",
             email: "",
-            message: ""
+            username: "",
+            password: ""
         },
 
         validationSchema,
 
         onSubmit(values) {
-            fetch('/api/contact', {
+            fetch('/api/users/register', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 credentials: 'same-origin',
                 body: JSON.stringify(values)
+            }).then((response)=>{
+                if(!response.ok) throw Error('Failed to sign up')
+                return response.text()
             }).then(() => {
-                toast('Successfully submitted', {
+                toast('Successfully signed up', {
                     onClose: () => {
                         document.location = "/movies"
                     }
                 })
             }).catch((error) => {
-                toast('Failed to submit', {
+                toast('Failed to sign up', {
                     onClose: () => {
                         document.location = "/movies"
                     }
@@ -54,13 +61,21 @@ export default function ContactForm() {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <h1>Contact us</h1>
+                <h1>Sign Up</h1>
 
                 <div className='field'>
-                    <label htmlFor='name'>Name</label>
+                    <label htmlFor='firstName'>First Name</label>
                     <div className='control'>
-                        <input type='text' name='name' id='name' value={values.name} onChange={handleChange} />
-                        <VHelp message={errors.name} />
+                        <input type='text' name='firstName' id='firstName' value={values.firstName} onChange={handleChange} />
+                        <VHelp message={errors.firstName} />
+                    </div>
+                </div>
+
+                <div className='field'>
+                    <label htmlFor='lastName'>Last Name</label>
+                    <div className='control'>
+                        <input type='text' name='lastName' id='lastName' value={values.lastName} onChange={handleChange} />
+                        <VHelp message={errors.lastName} />
                     </div>
                 </div>
 
@@ -73,10 +88,18 @@ export default function ContactForm() {
                 </div>
 
                 <div className='field'>
-                    <label htmlFor='message'>Leave a message</label>
+                    <label htmlFor='username'>Username</label>
                     <div className='control'>
-                        <textarea name='message' id='message' value={values.message} onChange={handleChange} />
-                        <VHelp message={errors.message} />
+                        <input type='text' name='username' id='username' value={values.username} onChange={handleChange} />
+                        <VHelp message={errors.username} />
+                    </div>
+                </div>
+
+                <div className='field'>
+                    <label htmlFor='password'>Password</label>
+                    <div className='control'>
+                        <input type='password' name='password' id='password' value={values.password} onChange={handleChange} />
+                        <VHelp message={errors.password} />
                     </div>
                 </div>
 
@@ -84,7 +107,7 @@ export default function ContactForm() {
                     <label></label>
                     <div className='control'>
                         <button className='primary' type="submit">Submit</button>
-                        <button className='primary' onClick={() => history.push('/movies')}>Cancel</button>
+                        <button className='primary' onClick={() => document.location = '/movies'}>Cancel</button>
                     </div>
                 </div>
             </form>

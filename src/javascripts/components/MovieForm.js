@@ -28,8 +28,13 @@ const validationSchema = yup.object({
 
 })
 export default function MovieForm() {
-    let { movies, setMovies } = useContext(MovieContext)
+    let { movies, setMovies, authenticated, setAuthenticated } = useContext(MovieContext)
     let { mid } = useParams()
+
+    if(!authenticated){
+        document.location = '/signin'
+        return<></>
+    }
 
     let movie = mid ? movies.find(m => m.id == mid) : {}
     let is_new = mid === undefined
@@ -56,6 +61,7 @@ export default function MovieForm() {
                 headers: {
                     "Content-Type": "application/json"
                 },
+                credentials: 'same-origin',
                 body: JSON.stringify(values)
             }).then(() => {
                 toast('Successfully submitted', {

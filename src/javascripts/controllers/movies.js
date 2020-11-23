@@ -1,4 +1,6 @@
 import { Movie } from '../models/movie'
+import { getCurrentUser } from '../config/routes'
+import { User } from '../models/user'
 
 export const allMoviesAPI = (req, res, next) => {
     Movie.find().select('-reviews').exec((err, movies) => {
@@ -28,6 +30,7 @@ export const createMovieAPI = (req, res, next) => {
     let movie = new Movie(req.body)
     movie.added_at = new Date()
     movie.updated_at = new Date()
+    movie.added_by = new User(getCurrentUser(req))
     movie.save(err => {
         if (err) {
             res.json({ success: false, message: "Movie failed to save" })

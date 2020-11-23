@@ -20,7 +20,7 @@ const customStyles = {
 };
 
 export default function Movie(props) {
-    let { movies, setMovies } = useContext(MovieContext)
+    let { movies, setMovies, authenticated, setAuthenticated } = useContext(MovieContext)
     let [modalOpen, setModalOpen] = useState(false)
     const onLike = props.onLike
     const onRate = props.onRate
@@ -30,7 +30,8 @@ export default function Movie(props) {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            credentials: 'same-origin',
         }).then(() => {
             toast('Successfully submitted', {
                 onClose: () => {
@@ -67,7 +68,10 @@ export default function Movie(props) {
                     <li><FaThumbsUp color="maroon" onClick={onLike} /> <small>{m.likes ? m.likes : 0}</small></li>
                 </ul>
                 <button className='primary' onClick={() => history.push(`/movies/${m.id}/edit`)}>Edit</button>
-                <button className='primary' onClick={() => setModalOpen(true)}>Delete</button>
+                <button className='primary' onClick={() => {
+                    if(authenticated) setModalOpen(true)
+                    else document.location = '/signin'
+                }}>Delete</button>
             </div>
             <Modal isOpen={modalOpen} onRequestClose={() => setModalOpen(false)} style={customStyles} contentLabel="Are you sure?">
                 <p>Are you sure you want to delete this movie?</p>

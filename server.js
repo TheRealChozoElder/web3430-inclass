@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 import passport from 'passport'
 import { strategy } from './src/javascripts/config/passport'
 passport.use(strategy)
-app.use(passport.initialize)
+app.use(passport.initialize())
 
 import { configureRoutes } from './src/javascripts/config/routes'
 configureRoutes(app)

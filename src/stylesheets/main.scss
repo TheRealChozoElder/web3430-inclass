@@ -22,11 +22,12 @@ body {
     margin   : 10px auto;
     display  : flex;
     flex-flow: column nowrap;
-    .pull-content-right{
-        display: flex;
+
+    .pull-content-right {
+        display        : flex;
         justify-content: flex-end;
     }
-    
+
     nav {
         display   : flex;
         background: maroon;
@@ -34,7 +35,6 @@ body {
 
         ul {
             display   : flex;
-            flex      : 1;
             list-style: none;
             padding   : 0px;
 
@@ -47,6 +47,10 @@ body {
                     color          : white;
                 }
             }
+
+            &:first-child {
+                flex: 1;
+            }
         }
     }
 
@@ -54,7 +58,7 @@ body {
         display        : flex;
         flex-flow      : row wrap;
         justify-content: space-around;
-        word-wrap: normal;
+        word-wrap      : normal;
 
         &>.card {
             width  : 30%;
